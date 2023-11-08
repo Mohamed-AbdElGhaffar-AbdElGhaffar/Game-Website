@@ -9,8 +9,9 @@ import { CounterContext } from '../../Contexts/CounterContext';
 export default function Details() {
   let {counter,setCounter} = useContext(CounterContext)
   // let navigate = useNavigate();
-  let {id} = useParams()
+  let {cat,id} = useParams()
   console.log(id);
+  console.log("cat",cat);
   async function gameDetails(Gameid) {
     const options = {
       method: 'GET',
@@ -39,7 +40,7 @@ export default function Details() {
       <div className="container">
         <header className="hstack justify-content-between">
             <h1 className="text-center h3 py-4">Details Game</h1>
-            <Link className="btn-close btn-close-white" id="btnClose" onClick={()=>setCounter(false)} to='/'></Link>
+            <Link className="btn-close btn-close-white" id="btnClose" onClick={()=>setCounter(false)} to={`/${cat=='mmorpg'?'':cat}`}></Link>
         </header>
         <div className="row g-4" id="detailsContent">
           <div className="col-md-4">
@@ -51,7 +52,7 @@ export default function Details() {
               <p>Platform: <span className="badge text-bg-info"> {data.data.platform}</span> </p>
               <p>Status: <span className="badge text-bg-info"> {data.data.status}</span> </p>
               <p className="small">{data.data.description}</p>
-              <a className="btn btn-outline-warning" target="_blank" href={data.data.game_url}>Show Game</a>
+              <a className="btn btn-outline-warning mb-3" target="_blank" href={data.data.game_url}>Show Game</a>
           </div>
         </div>
       </div>

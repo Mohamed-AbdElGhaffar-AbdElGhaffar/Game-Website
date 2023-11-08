@@ -79,6 +79,41 @@ nav {
 
 /***** End Home *****/
 
+/***** Pagination *****/
+.pagination{
+  width: 100%;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.1rem;
+  padding: 0 2px;
+  gap: 5px;
+}
+.pagination a{
+  text-decoration: none;
+  padding: 8px 8px;
+}
+.pagination .page-num{
+  padding: 8px 0px;
+  cursor: pointer;
+  border-radius: 3px;
+  font-weight: 400;
+}
+.pagination .page-num:hover{
+  background-color: #5ab1bb9c;
+  color: #fff;
+}
+.pagination .selected{
+  background-color: #5ab1bb9c;
+  color: #fff;
+}
+.pagination .disabled,.pagination .disabled:hover{
+  background-color: transparent;
+}
+
+
+
 /***** Details *****/
 .details {
   background-color: #272729be;

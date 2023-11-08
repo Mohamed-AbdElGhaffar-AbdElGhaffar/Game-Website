@@ -9,25 +9,23 @@ import { CounterContext } from '../../Contexts/CounterContext';
 export default function Navbar() {
   let {counter,setCounter} = useContext(CounterContext)
   let location = useLocation();
-  function LinkActive(elemnt) {
-    let links = document.querySelectorAll(`.nav-link`)
-    for (let i = 0; i < links.length; i++) {
-      let attribute = links[i].getAttribute("id") ;
-      document.getElementById(attribute).classList.remove("active");
-    }
-    document.getElementById(`${elemnt}`)?.classList.add("active")
-  }
+  // function LinkActive(elemnt) {
+  //   let links = document.querySelectorAll(`.nav-link`)
+  //   for (let i = 0; i < links.length; i++) {
+  //     let attribute = links[i].getAttribute("id") ;
+  //     document.getElementById(attribute).classList.remove("active");
+  //   }
+  //   document.getElementById(`${elemnt}`)?.classList.add("active")
+  // }
   let activeNameLocation = location.pathname
 
   useEffect(()=>{
-    console.log("location", activeNameLocation.substring(1))
-    if (activeNameLocation.substring(1) == '') {
-      console.log("mmorpg");
-      LinkActive("mmorpg");
-    }else if(activeNameLocation.split('/')[1] == "GameDetails"){
+    activeNameLocation = location.pathname
+    console.log("location", activeNameLocation)
+    if(activeNameLocation.split('/')[1] == "GameDetails"){
       setCounter(true);
     }else{
-      LinkActive(activeNameLocation.substring(1));
+      setCounter(false);
     }
   },[activeNameLocation])
   return <>
@@ -55,22 +53,22 @@ export default function Navbar() {
             <div className="collapse small navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav ms-auto mb-2 mb-lg-0 menu small">
                   <li className="nav-item">
-                    <Link role="button" className="nav-link text-uppercase text-center" aria-current="page" id="mmorpg" onClick={(e)=>LinkActive("mmorpg")} to=''>mmorpg</Link>
+                    <Link role="button" className={`nav-link text-uppercase text-center ${activeNameLocation.substring(1) == ''?"active":''}`} aria-current="page" id="mmorpg" to=''>mmorpg</Link>
                   </li>
                   <li className="nav-item">
-                    <Link role="button" className="nav-link text-uppercase text-center" id="shooter" onClick={(e)=>LinkActive("shooter")} to="shooter">shooter</Link>
+                    <Link role="button" className={`nav-link text-uppercase text-center ${activeNameLocation.substring(1) == 'shooter'?"active":''}`} id="shooter"  to="shooter">shooter</Link>
                   </li>
                   <li className="nav-item">
-                    <Link role="button" className="nav-link text-uppercase text-center" id="sailing" onClick={(e)=>LinkActive("sailing")} to='sailing'>sailing</Link>
+                    <Link role="button" className={`nav-link text-uppercase text-center ${activeNameLocation.substring(1) == 'sailing'?"active":''}`} id="sailing" to='sailing'>sailing</Link>
                   </li>
                   <li className="nav-item">
-                    <Link role="button" className="nav-link text-uppercase text-center" id="permadeath" onClick={(e)=>LinkActive("permadeath")} to='permadeath'>permadeath</Link>
+                    <Link role="button" className={`nav-link text-uppercase text-center ${activeNameLocation.substring(1) == 'permadeath'?"active":''}`} id="permadeath" to='permadeath'>permadeath</Link>
                   </li>
                   <li className="nav-item">
-                    <Link role="button" className="nav-link text-uppercase text-center" id="superhero" onClick={(e)=>LinkActive("superhero")} to='superhero'>superhero</Link>
+                    <Link role="button" className={`nav-link text-uppercase text-center ${activeNameLocation.substring(1) == 'superhero'?"active":''}`} id="superhero" to='superhero'>superhero</Link>
                   </li>
                   <li className="nav-item">
-                    <Link role="button" className="nav-link text-uppercase text-center" id="pixel" onClick={(e)=>LinkActive("pixel")} to='pixel'>pixel</Link>
+                    <Link role="button" className={`nav-link text-uppercase text-center ${activeNameLocation.substring(1) == 'pixel'?"active":''}`} id="pixel"  to='pixel'>pixel</Link>
                   </li>
               </ul>
             </div>

@@ -1,19 +1,24 @@
 import React, { useContext } from 'react'
 import style from '../Product/Product.module.css'
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { CounterContext } from '../../Contexts/CounterContext';
 
 
 export default function Product({data}) {
   let {counter,setCounter} = useContext(CounterContext)
+  let location = useLocation();
+  let activeNameLocation = location.pathname
   let navigate = useNavigate();
-  function getDetails(id) {
+  function getDetails(cat,id) {
     setCounter(true);
-    navigate(`/GameDetails/${id}`)
+    if (cat == '') {
+      cat = "mmorpg"
+    }
+    navigate(`/GameDetails/${cat}/${id}`)
   }
   return <>
   
-  <div className="col" onClick={()=>getDetails(data.id)}>
+  <div className="col" onClick={()=>getDetails(activeNameLocation.substring(1),data.id)}>
     <div data-id= {data.id} className="card h-100 bg-transparent" role="button" >
       <div  className="card-body">
         <figure className="position-relative">

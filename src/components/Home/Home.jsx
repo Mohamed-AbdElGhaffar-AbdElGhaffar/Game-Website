@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import style from '../Home/Home.module.css'
 import axios from 'axios';
 import { useQuery } from 'react-query';
 import Product from '../Product/Product';
+import ReactPaginate from 'react-paginate';
 
 export default function Home() {
   async function getData(cat) {
@@ -22,6 +23,22 @@ export default function Home() {
   }
     
   let {isLoading,isFetching,data} = useQuery('getData', ()=>getData("mmorpg"));
+  // Pagination
+  
+  const [itemOffset, setItemOffset] = useState(0);
+  const itemsPerPage = 8
+
+  const endOffset = itemOffset + itemsPerPage;
+  console.log(`Loading items from ${itemOffset} to ${endOffset}`);
+  const currentItems = data?.data?.slice(itemOffset, endOffset);
+  const pageCount = Math.ceil(data?.data?.length / itemsPerPage);
+
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * itemsPerPage) % data?.data?.length;
+    setItemOffset(newOffset);
+  };
+
+  
   return <>
   {isLoading?
     <div className="loading">
@@ -31,11 +48,27 @@ export default function Home() {
     <main className="container my-5 home">
       <section className="position-relative">
           <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4" id="gameData">
-            {data?.data?.map((data)=>(
+            {currentItems?.map((data)=>(
                
               <Product key={data.id} data={data}/>
             
             ))}
+            <>
+              <ReactPaginate
+                breakLabel="..."
+                nextLabel=">>"
+                onPageChange={handlePageClick}
+                pageRangeDisplayed={2}
+                pageCount={pageCount}
+                previousLabel="<<"
+                renderOnZeroPageCount={null}
+                containerClassName='pagination'
+                pageClassName='page-num'
+                previousClassName='page-num'
+                nextClassName='page-num'
+                activeLinkClassName='active'
+              />
+            </>
           </div>
       </section>
     </main>

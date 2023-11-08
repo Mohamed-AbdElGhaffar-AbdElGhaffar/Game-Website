@@ -20,7 +20,7 @@ let routers=createBrowserRouter([
     {path:'Permadeath',element:<Permadeath/>},
     {path:'superhero',element:<Superhero/>},
     {path:'pixel',element:<Pixel/>},
-    {path:'GameDetails/:id',element:<Details/>},
+    {path:'GameDetails/:cat/:id',element:<Details/>},
     {path:'*',element:<NotFound/>},
   ]}
 ])
